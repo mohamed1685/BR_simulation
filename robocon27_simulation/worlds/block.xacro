@@ -1,0 +1,165 @@
+<?xml version="1.0" ?>
+<xacro:block xmlns:xacro="http://ros.org/wiki/xacro">
+
+  <xacro:property name="mu_plywood"   value="0.65"/>  <!-- Plywood, Water Paint - most of the field -->
+  <xacro:property name="mu_pvc"       value="0.35"/>  <!-- PVC pipe, Oil Paint - Central/Mustika Pillar -->
+  <xacro:property name="mu_cardboard" value="0.45"/>  <!-- Earth/Sky Blocks, corrugated cardboard -->
+
+  <xacro:macro name="colored_rect" params="name x y width height color thickness:=0.002 z:=0.001">
+    <model name="${name}">
+      <static>true</static>
+      <pose>${x} ${y} ${z} 0 0 0</pose>
+      <link name="link">
+        <visual name="visual">
+          <geometry>
+            <box><size>${width} ${height} ${thickness}</size></box>
+          </geometry>
+          <material>
+            <ambient>${color}</ambient>
+            <diffuse>${color}</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+          </material>
+        </visual>
+      </link>
+    </model>
+  </xacro:macro>
+
+
+  <xacro:macro name="ramp" params="name x y z yaw:=0 friction:=0.7 color:='0.85 0.6 0.6 1' mesh_path">
+    <model name="${name}">
+      <static>true</static>
+      <pose>${x} ${y} ${z} 0 0 ${yaw}</pose>
+      <link name="link">
+        <!-- Box collision proxy for the wedge mesh (raw trimesh collision caused flips); pitch is negative to match the mesh's low->high slope direction.
+             Extended 0.15m past the mesh's low end and re-centered so the plate is embedded ~2.5cm into the ground there instead of meeting it at an exact
+             zero-thickness seam. A wheel's first contact right at a knife-edge boundary between two separate static collisions is a known source of bad/
+             erratic contact normals in ODE, which can kick the robot and flip it - this removes that edge case by giving continuous overlap instead. -->
+        <collision name="collision">
+          <pose>1.6761 0.5 0.2873 0 -0.16978 0</pose>
+          <geometry>
+            <box><size>3.7011 1.0 0.02</size></box>
+          </geometry>
+          <surface>
+            <friction>
+              <ode>
+                <mu>${friction}</mu>
+                <mu2>${friction}</mu2>
+              </ode>
+            </friction>
+          </surface>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <mesh><uri>${mesh_path}</uri></mesh>
+          </geometry>
+          <material>
+            <ambient>${color}</ambient>
+            <diffuse>${color}</diffuse>
+          </material>
+        </visual>
+      </link>
+    </model>
+  </xacro:macro>
+
+
+  <xacro:macro name="stair_step" params="name x y z width depth height color friction:=0.7">
+    <model name="${name}">
+      <static>true</static>
+      <pose>${x} ${y} ${z} 0 0 0</pose>
+      <link name="link">
+        <collision name="collision">
+          <geometry>
+            <box><size>${width} ${depth} ${height}</size></box>
+          </geometry>
+          <surface>
+            <friction>
+              <ode>
+                <mu>${friction}</mu>
+                <mu2>${friction}</mu2>
+              </ode>
+            </friction>
+          </surface>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <box><size>${width} ${depth} ${height}</size></box>
+          </geometry>
+          <material>
+            <ambient>${color}</ambient>
+            <diffuse>${color}</diffuse>
+          </material>
+        </visual>
+      </link>
+    </model>
+  </xacro:macro>
+
+
+  <xacro:macro name="mesh_part" params="name x y z yaw:=0 friction:=0.7 color mesh_path">
+    <model name="${name}">
+      <static>true</static>
+      <pose>${x} ${y} ${z} 0 0 ${yaw}</pose>
+      <link name="link">
+        <collision name="collision">
+          <geometry>
+            <mesh><uri>${mesh_path}</uri></mesh>
+          </geometry>
+          <surface>
+            <friction>
+              <ode>
+                <mu>${friction}</mu>
+                <mu2>${friction}</mu2>
+              </ode>
+            </friction>
+          </surface>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <mesh><uri>${mesh_path}</uri></mesh>
+          </geometry>
+          <material>
+            <ambient>${color}</ambient>
+            <diffuse>${color}</diffuse>
+          </material>
+        </visual>
+      </link>
+    </model>
+  </xacro:macro>
+
+
+  <!-- Same shape/physics as stair_step (solid box + collision + friction) -
+       given a separate semantic name since it's used for boundary/divider
+       walls, not stair treads. Kept as a distinct macro rather than an
+       alias, since xacro doesn't support clean macro-of-macro wrapping
+       for this case. -->
+  <xacro:macro name="wall" params="name x y z width depth height color friction:=0.7">
+    <model name="${name}">
+      <static>true</static>
+      <pose>${x} ${y} ${z} 0 0 0</pose>
+      <link name="link">
+        <collision name="collision">
+          <geometry>
+            <box><size>${width} ${depth} ${height}</size></box>
+          </geometry>
+          <surface>
+            <friction>
+              <ode>
+                <mu>${friction}</mu>
+                <mu2>${friction}</mu2>
+              </ode>
+            </friction>
+          </surface>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <box><size>${width} ${depth} ${height}</size></box>
+          </geometry>
+          <material>
+            <ambient>${color}</ambient>
+            <diffuse>${color}</diffuse>
+          </material>
+        </visual>
+      </link>
+    </model>
+  </xacro:macro>
+
+</xacro:block>

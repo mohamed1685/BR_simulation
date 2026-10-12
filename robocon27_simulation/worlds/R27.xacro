@@ -1,0 +1,151 @@
+<?xml version="1.0" ?>
+<sdf version="1.9" xmlns:xacro="http://ros.org/wiki/xacro">
+  <world name="robocon27">
+    <xacro:include filename="block.xacro"/>
+
+    <physics name="default_physics" type="ode">
+      <max_step_size>0.001</max_step_size>
+      <real_time_factor>1.0</real_time_factor>
+    </physics>
+
+    <plugin filename="gz-sim-sensors-system" name="gz::sim::systems::Sensors">
+        <render_engine>ogre2</render_engine>
+    </plugin>
+
+    <plugin filename="gz-sim-physics-system" name="gz::sim::systems::Physics"/>
+    <plugin filename="gz-sim-scene-broadcaster-system" name="gz::sim::systems::SceneBroadcaster"/>
+    <plugin filename="gz-sim-user-commands-system" name="gz::sim::systems::UserCommands"/>
+
+    <light type="directional" name="sun">
+      <cast_shadows>true</cast_shadows>
+      <pose>0 0 10 0 0 0</pose>
+      <diffuse>0.8 0.8 0.8 1</diffuse>
+      <specular>0.2 0.2 0.2 1</specular>
+      <attenuation>
+        <range>1000</range>
+        <constant>0.9</constant>
+        <linear>0.01</linear>
+        <quadratic>0.001</quadratic>
+      </attenuation>
+      <direction>-0.5 0.1 -0.9</direction>
+    </light>
+
+    <!-- Ground plane collision - field bounds x:[-10,1] y:[-1,10], center (-4.5, 4.5).
+         Without this, nothing under the thin colored_rect overlays actually
+         stops the robot from falling through. -->
+    <model name="ground_plane">
+      <static>true</static>
+      <link name="link">
+        <collision name="collision">
+          <geometry>
+            <plane><normal>0 0 1</normal><size>11 11</size></plane>
+          </geometry>
+          <surface>
+            <friction>
+              <ode><mu>0.7</mu><mu2>0.7</mu2></ode>
+            </friction>
+          </surface>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <plane><normal>0 0 1</normal><size>11 11</size></plane>
+          </geometry>
+          <material>
+            <ambient>0.9 0.9 0.9 1</ambient>
+            <diffuse>0.9 0.9 0.9 1</diffuse>
+          </material>
+        </visual>
+      </link>
+      <pose>-4.5 4.5 0 0 0 0</pose>
+    </model>
+
+  <xacro:colored_rect name="team_red"  x="-7.25" y="4.5" width="5.5" height="11.0" color="${240/255} ${210/255} ${210/255} 1"/>
+
+  <xacro:colored_rect name="red_storage" x="-9" y="9.5" width="2" height="1.0" z="0.003" color="${223/255} ${34/255} ${34/255} 1"/>
+
+  <xacro:colored_rect name="red_start1" x="-9.65" y="-0.65" width="0.7" height="0.7" z="0.003" color="${223/255} ${34/255} ${34/255} 1"/>
+  <xacro:colored_rect name="red_start2" x="-8.9"  y="-0.65" width="0.7" height="0.7" z="0.003" color="${223/255} ${34/255} ${34/255} 1"/>
+
+  <xacro:ramp name="red_ramp" x="-8.5" y="7.2" yaw="-1.5708" z="0.0001" friction="${mu_plywood}" mesh_path="meshes/ramp.stl" color="${200/255} ${150/255} ${140/255} 1" />
+  <xacro:stair_step name="red_step1"    x="-8" y="1.950" z="0.075" width="1" depth="0.3" height="0.150" color="${235/255} ${180/255} ${160/255} 1" friction="${mu_plywood}"/>
+  <xacro:stair_step name="red_step2"    x="-8" y="2.250" z="0.150" width="1" depth="0.3" height="0.300" color="${235/255} ${180/255} ${160/255} 1" friction="${mu_plywood}"/>
+  <xacro:stair_step name="red_step3"    x="-8" y="2.550" z="0.225" width="1" depth="0.3" height="0.450" color="${235/255} ${180/255} ${160/255} 1" friction="${mu_plywood}"/>
+  <xacro:stair_step name="red_transfer" x="-8" y="3.200" z="0.300" width="1" depth="1.0" height="0.600" color="${245/255} ${170/255} ${60/255} 1" friction="${mu_plywood}"/>
+
+
+  <xacro:colored_rect name="ground_shared_base" x="-4.5" y="0.5" width="1.2" height="1.2" z="0.001" color="0.9607843137254902 0.9411764705882353 0.7843137254901961 1"/>
+  <xacro:colored_rect name="ground_shared_block_r0_c1" x="-4.7400" y="0.9800" width="0.2400" height="0.2400" z="0.002" color="0.8745098039215686 0.13333333333333333 0.13333333333333333 1"/>
+  <xacro:colored_rect name="ground_shared_block_r0_c3" x="-4.2600" y="0.9800" width="0.2400" height="0.2400" z="0.002" color="0.19607843137254902 0.0 1.0 1"/>
+  <xacro:colored_rect name="ground_shared_block_r1_c0" x="-4.9800" y="0.7400" width="0.2400" height="0.2400" z="0.002" color="0.8745098039215686 0.13333333333333333 0.13333333333333333 1"/>
+  <xacro:colored_rect name="ground_shared_block_r1_c2" x="-4.5000" y="0.7400" width="0.2400" height="0.2400" z="0.002" color="0.19607843137254902 0.0 1.0 1"/>
+  <xacro:colored_rect name="ground_shared_block_r1_c4" x="-4.0200" y="0.7400" width="0.2400" height="0.2400" z="0.002" color="0.8745098039215686 0.13333333333333333 0.13333333333333333 1"/>
+  <xacro:colored_rect name="ground_shared_block_r2_c1" x="-4.7400" y="0.5000" width="0.2400" height="0.2400" z="0.002" color="0.19607843137254902 0.0 1.0 1"/>
+  <xacro:colored_rect name="ground_shared_block_r2_c3" x="-4.2600" y="0.5000" width="0.2400" height="0.2400" z="0.002" color="0.8745098039215686 0.13333333333333333 0.13333333333333333 1"/>
+  <xacro:colored_rect name="ground_shared_block_r3_c0" x="-4.9800" y="0.2600" width="0.2400" height="0.2400" z="0.002" color="0.19607843137254902 0.0 1.0 1"/>
+  <xacro:colored_rect name="ground_shared_block_r3_c2" x="-4.5000" y="0.2600" width="0.2400" height="0.2400" z="0.002" color="0.8745098039215686 0.13333333333333333 0.13333333333333333 1"/>
+  <xacro:colored_rect name="ground_shared_block_r3_c4" x="-4.0200" y="0.2600" width="0.2400" height="0.2400" z="0.002" color="0.19607843137254902 0.0 1.0 1"/>
+  <xacro:colored_rect name="ground_shared_block_r4_c1" x="-4.7400" y="0.0200" width="0.2400" height="0.2400" z="0.002" color="0.8745098039215686 0.13333333333333333 0.13333333333333333 1"/>
+  <xacro:colored_rect name="ground_shared_block_r4_c3" x="-4.2600" y="0.0200" width="0.2400" height="0.2400" z="0.002" color="0.19607843137254902 0.0 1.0 1"/>
+
+  <xacro:colored_rect name="mustika_pillar_ground" x="-4.5" y="8.75" width="1" height="1" z="0.002" color="${245/255} ${240/255} ${200/255} 1"/>
+
+  <!-- Level 1-->
+  <xacro:stair_step name="level1_area" x="-4.5" y="4.5" z="0.3" width="6" depth="6" height="0.6" color="${190/255} ${190/255} ${185/255} 1" friction="${mu_plywood}"/>
+  <xacro:colored_rect name="level1_red"  x="-6.0" y="4.5" width="3" height="6" z="0.601" color="${235/255} ${180/255} ${160/255} 1"/>
+  <xacro:colored_rect name="level1_blue" x="-3.0" y="4.5" width="3" height="6" z="0.601" color="${150/255} ${215/255} ${220/255} 1"/>
+  <xacro:colored_rect name="corner_tl" x="-7.25" y="7.25" width="0.5" height="0.5" z="0.602" color="${40/255} ${100/255} ${50/255} 1"/>
+  <xacro:colored_rect name="corner_tr" x="-1.75" y="7.25" width="0.5" height="0.5" z="0.602" color="${40/255} ${100/255} ${50/255} 1"/>
+  <xacro:colored_rect name="corner_bl" x="-7.25" y="1.75" width="0.5" height="0.5" z="0.602" color="${40/255} ${100/255} ${50/255} 1"/>
+  <xacro:colored_rect name="corner_br" x="-1.75" y="1.75" width="0.5" height="0.5" z="0.602" color="${40/255} ${100/255} ${50/255} 1"/>
+
+  <xacro:colored_rect name="L1retry_red"   x="-6.35" y="7.15" width="0.7" height="0.7" z="0.602" color="${223/255} ${34/255} ${34/255} 1"/>
+  <xacro:colored_rect name="pad_top_green" x="-4.5"  y="7.25" width="0.5" height="0.5" z="0.603" color="${40/255} ${100/255} ${50/255} 1"/>
+  <xacro:colored_rect name="pad_top_gray"  x="-4.5"  y="7.125" width="1" height="0.75" z="0.602" color="${190/255} ${190/255} ${185/255} 1"/>
+
+  <xacro:colored_rect name="pad_bot_green" x="-4.5"  y="1.75" width="0.5" height="0.5" z="0.603" color="${40/255} ${100/255} ${50/255} 1"/>
+  <xacro:colored_rect name="pad_bot_gray"  x="-4.5"  y="1.875" width="1" height="0.75" z="0.602" color="${190/255} ${190/255} ${185/255} 1"/>
+
+  <xacro:stair_step name="Level1Stair_red" x="-6.15" y="4.5" z="0.675" width="0.3" depth="1" height="0.15" color="${235/255} ${180/255} ${160/255} 1" friction="${mu_plywood}"/>
+  <xacro:mesh_part name="mustika_pillar" x="-4.5" y="8.75" z="0.252" friction="${mu_pvc}" mesh_path="meshes/mustika_pillar.stl" color="${100/255} ${62/255} 0 1"/>
+
+
+  <!-- Level2-->
+  <xacro:stair_step name="level2_area" x="-4.5" y="4.5" z="0.75" width="3" depth="3" height="0.3" color="${190/255} ${190/255} ${185/255} 1" friction="${mu_plywood}"/>
+  <xacro:colored_rect name="corner2_tl" x="-5.75" y="5.75" width="0.5" height="0.5" z="0.902" color="${40/255} ${100/255} ${50/255} 1"/>
+  <xacro:colored_rect name="corner2_tr" x="-3.25" y="5.75" width="0.5" height="0.5" z="0.902" color="${40/255} ${100/255} ${50/255} 1"/>
+  <xacro:colored_rect name="corner2_bl" x="-5.75" y="3.25" width="0.5" height="0.5" z="0.902" color="${40/255} ${100/255} ${50/255} 1"/>
+  <xacro:colored_rect name="corner2_br" x="-3.25" y="3.25" width="0.5" height="0.5" z="0.902" color="${40/255} ${100/255} ${50/255} 1"/>
+
+  <xacro:mesh_part name="central_pillar" x="-4.5" y="4.5" z="1.3" friction="${mu_pvc}" mesh_path="meshes/pillar.stl" color="${100/255} ${62/255} 0 1"/>
+
+  <!-- Blue part-->
+   <xacro:colored_rect name="team_blue"  x="-1.75" y="4.5" width="5.5" height="11.0" color="${170/255} ${210/255} ${230/255} 1"/>
+
+  <xacro:colored_rect name="blue_storage" x="0" y="9.5" width="2" height="1.0" z="0.003" color="${50/255} ${0/255} ${255/255} 1"/>
+
+  <xacro:colored_rect name="blue_start1" x="0.65" y="-0.65" width="0.7" height="0.7" z="0.003" color="${50/255} ${0/255} ${255/255} 1"/>
+  <xacro:colored_rect name="blue_start2" x="-0.1" y="-0.65" width="0.7" height="0.7" z="0.003" color="${50/255} ${0/255} ${255/255} 1"/>
+
+  <xacro:ramp name="blue_ramp" x="-1.5" y="7.2" yaw="-1.5708" z="0.001" friction="${mu_plywood}" mesh_path="meshes/ramp.stl" color="${130/255} ${180/255} ${200/255} 1"/>
+
+  <xacro:stair_step name="blue_step1"    x="-1" y="1.950" z="0.075" width="1" depth="0.3" height="0.150" color="${150/255} ${215/255} ${220/255} 1" friction="${mu_plywood}"/>
+  <xacro:stair_step name="blue_step2"    x="-1" y="2.250" z="0.150" width="1" depth="0.3" height="0.300" color="${150/255} ${215/255} ${220/255} 1" friction="${mu_plywood}"/>
+  <xacro:stair_step name="blue_step3"    x="-1" y="2.550" z="0.225" width="1" depth="0.3" height="0.450" color="${150/255} ${215/255} ${220/255} 1" friction="${mu_plywood}"/>
+  <xacro:stair_step name="blue_transfer" x="-1" y="3.200" z="0.300" width="1" depth="1.0" height="0.600" color="${60/255} ${170/255} ${245/255} 1" friction="${mu_plywood}"/>
+
+  <xacro:stair_step name="Level1Stair_blue" x="-2.85" y="4.5" z="0.675" width="0.3" depth="1" height="0.15" color="${150/255} ${215/255} ${220/255} 1" friction="${mu_plywood}"/>
+
+  <xacro:colored_rect name="L1retry_blue" x="-2.65" y="7.15" width="0.7" height="0.7" z="0.602" color="${50/255} ${0/255} ${255/255} 1"/>
+
+
+  <xacro:wall name="boundary_north" x="-4.5" y="10"  z="0.05" width="11"   depth="0.05" height="0.3" color="${100/255} ${62/255} 0 1" friction="${mu_plywood}"/>
+  <xacro:wall name="boundary_south" x="-4.5" y="-1"  z="0.05" width="11"   depth="0.05" height="0.3" color="${100/255} ${62/255} 0 1" friction="${mu_plywood}"/>
+  <xacro:wall name="boundary_east"  x="1"    y="4.5" z="0.05" width="0.05" depth="11"  height="0.3" color="${100/255} ${62/255} 0 1" friction="${mu_plywood}"/>
+  <xacro:wall name="boundary_west"  x="-10"  y="4.5" z="0.05" width="0.05" depth="11"  height="0.3" color="${100/255} ${62/255} 0 1" friction="${mu_plywood}"/>
+
+  <xacro:wall name="divider_s1" x="-4.5" y="-0.55" z="0.025" width="0.01" depth="0.9"  height="0.3" color="${100/255} ${62/255} 0 1" friction="${mu_plywood}"/>
+  <xacro:wall name="divider_s2" x="-4.5" y="1.3"   z="0.025" width="0.01" depth="0.4"  height="0.3" color="${100/255} ${62/255} 0 1" friction="${mu_plywood}"/>
+  <xacro:wall name="divider_n1" x="-4.5" y="7.875" z="0.025" width="0.01" depth="0.75" height="0.3" color="${100/255} ${62/255} 0 1" friction="${mu_plywood}"/>
+  <xacro:wall name="divider_n2" x="-4.5" y="9.625" z="0.025" width="0.01" depth="0.75" height="0.3" color="${100/255} ${62/255} 0 1" friction="${mu_plywood}"/>
+    </world>
+</sdf>
