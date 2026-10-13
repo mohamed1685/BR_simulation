@@ -1,0 +1,365 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- This URDF was automatically created by SolidWorks to URDF Exporter! Originally created by Stephen Brawner (brawner@gmail.com) 
+     Commit Version: 1.6.0-4-g7f85cfe  Build Version: 1.6.7995.38578
+     For more information, please see http://wiki.ros.org/sw_urdf_exporter -->
+<robot
+  name="DUE WHEEL V1 (ROB-27-03-05)">
+  <link
+    name="base_link">
+    <inertial>
+      <origin
+        xyz="0.62 1.41 1.52388513305626"
+        rpy="0 0 0" />
+      <mass
+        value="30" />
+      <inertia
+        ixx="2.50937374618567"
+        ixy="0.168335412986119"
+        ixz="-0.00470475559052553"
+        iyy="2.48941303685721"
+        iyz="0.0253738000756913"
+        izz="2.10388728662347" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://DUE WHEEL V1 (ROB-27-03-05)/meshes/base_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://DUE WHEEL V1 (ROB-27-03-05)/meshes/base_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <link
+    name="frontdue">
+    <inertial>
+      <origin
+        xyz="0.62 1.41 1.52388513305626"
+        rpy="0 0 0" />
+      <mass
+        value="30" />
+      <inertia
+        ixx="2.50937374618566"
+        ixy="0.168335412986101"
+        ixz="-0.00470475559052576"
+        iyy="2.48941303685719"
+        iyz="0.025373800075687"
+        izz="2.10388728662345" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://DUE WHEEL V1 (ROB-27-03-05)/meshes/frontdue.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.752941176470588 0.752941176470588 0.752941176470588 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://DUE WHEEL V1 (ROB-27-03-05)/meshes/frontdue.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="backduewheels"
+    type="continuous">
+    <origin
+      xyz="0.649138062129743 -1.30906289784679 1.02526697511446"
+      rpy="1.5707963267949 0.431550817925146 0" />
+    <parent
+      link="base_link" />
+    <child
+      link="frontdue" />
+    <axis
+      xyz="0 0 1" />
+  </joint>
+  <link
+    name="backduewheels">
+    <inertial>
+      <origin
+        xyz="0.62 1.41 1.52388513305626"
+        rpy="0 0 0" />
+      <mass
+        value="30" />
+      <inertia
+        ixx="2.50937374618566"
+        ixy="0.168335412986101"
+        ixz="-0.00470475559052576"
+        iyy="2.48941303685719"
+        iyz="0.025373800075687"
+        izz="2.10388728662345" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://DUE WHEEL V1 (ROB-27-03-05)/meshes/backduewheels.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.752941176470588 0.752941176470588 0.752941176470588 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://DUE WHEEL V1 (ROB-27-03-05)/meshes/backduewheels.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="frontdue"
+    type="continuous">
+    <origin
+      xyz="1.03912899450178 -1.44406289784679 1.02839548102742"
+      rpy="1.5707963267949 0.390922010727138 0" />
+    <parent
+      link="base_link" />
+    <child
+      link="backduewheels" />
+    <axis
+      xyz="0 0 1" />
+  </joint>
+  <link
+    name="1normalwheelf">
+    <inertial>
+      <origin
+        xyz="0.62 1.41 1.52388513305626"
+        rpy="0 0 0" />
+      <mass
+        value="30" />
+      <inertia
+        ixx="2.50937374618566"
+        ixy="0.168335412986101"
+        ixz="-0.00470475559052576"
+        iyy="2.48941303685719"
+        iyz="0.025373800075687"
+        izz="2.10388728662345" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://DUE WHEEL V1 (ROB-27-03-05)/meshes/1normalwheelf.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.752941176470588 0.752941176470588 0.752941176470588 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://DUE WHEEL V1 (ROB-27-03-05)/meshes/1normalwheelf.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="1normalwheel"
+    type="continuous">
+    <origin
+      xyz="0.576136509581082 -1.79269248302795 1.01653981692446"
+      rpy="-1.57079632679489 1.55118476328092 -3.14159265358979" />
+    <parent
+      link="base_link" />
+    <child
+      link="1normalwheelf" />
+    <axis
+      xyz="0 0 1" />
+  </joint>
+  <link
+    name="2normalwheelf">
+    <inertial>
+      <origin
+        xyz="0.62 1.41 1.52388513305626"
+        rpy="0 0 0" />
+      <mass
+        value="30" />
+      <inertia
+        ixx="2.50937374618566"
+        ixy="0.168335412986101"
+        ixz="-0.00470475559052576"
+        iyy="2.48941303685719"
+        iyz="0.025373800075687"
+        izz="2.10388728662345" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://DUE WHEEL V1 (ROB-27-03-05)/meshes/2normalwheelf.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.752941176470588 0.752941176470588 0.752941176470588 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://DUE WHEEL V1 (ROB-27-03-05)/meshes/2normalwheelf.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="2normalwheel2"
+    type="continuous">
+    <origin
+      xyz="0.576136509581082 -1.19669248302795 1.01653981692446"
+      rpy="1.5707963267949 -0.127518124605348 0" />
+    <parent
+      link="base_link" />
+    <child
+      link="2normalwheelf" />
+    <axis
+      xyz="0 0 1" />
+  </joint>
+  <link
+    name="1normalwheelb">
+    <inertial>
+      <origin
+        xyz="0.62 1.41 1.52388513305626"
+        rpy="0 0 0" />
+      <mass
+        value="30" />
+      <inertia
+        ixx="2.50937374618566"
+        ixy="0.168335412986101"
+        ixz="-0.00470475559052576"
+        iyy="2.48941303685719"
+        iyz="0.025373800075687"
+        izz="2.10388728662345" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://DUE WHEEL V1 (ROB-27-03-05)/meshes/1normalwheelb.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.752941176470588 0.752941176470588 0.752941176470588 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://DUE WHEEL V1 (ROB-27-03-05)/meshes/1normalwheelb.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="1normalwheel1"
+    type="fixed">
+    <origin
+      xyz="0.979935462546683 -1.82706289784679 1.01653981692446"
+      rpy="1.5707963267949 -1.5707963267949 0" />
+    <parent
+      link="base_link" />
+    <child
+      link="1normalwheelb" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+  <link
+    name="2wheelnormalbac">
+    <inertial>
+      <origin
+        xyz="0.62 1.41 1.52388513305626"
+        rpy="0 0 0" />
+      <mass
+        value="30" />
+      <inertia
+        ixx="2.50937374618566"
+        ixy="0.168335412986101"
+        ixz="-0.00470475559052576"
+        iyy="2.48941303685719"
+        iyz="0.025373800075687"
+        izz="2.10388728662345" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://DUE WHEEL V1 (ROB-27-03-05)/meshes/2wheelnormalbac.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.752941176470588 0.752941176470588 0.752941176470588 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://DUE WHEEL V1 (ROB-27-03-05)/meshes/2wheelnormalbac.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="2wheelnormal"
+    type="continuous">
+    <origin
+      xyz="0.979935462546684 -1.19669248302795 1.01653981692446"
+      rpy="1.5707963267949 0.31066740813373 0" />
+    <parent
+      link="base_link" />
+    <child
+      link="2wheelnormalbac" />
+    <axis
+      xyz="0 0 1" />
+  </joint>
+</robot>

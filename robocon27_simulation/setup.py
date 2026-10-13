@@ -19,6 +19,7 @@ setup(
             "share/" + package_name + "/worlds",
             glob("worlds/*.sdf") + glob("worlds/*.xacro"),
         ),
+        ("share/" + package_name + "/rviz", glob("rviz/*.rviz")),
         (
             "share/" + package_name + "/worlds/meshes",
             glob("worlds/meshes/*"),
@@ -41,7 +42,6 @@ setup(
     entry_points={
         'console_scripts': [
             'wheel_teleop = robocon27_simulation.wheel_teleop:main',
-            'cmd_vel_to_wheels = robocon27_simulation.cmd_vel_to_wheels:main',
         ],
     },
 )
