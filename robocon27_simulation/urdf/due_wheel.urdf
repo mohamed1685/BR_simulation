@@ -1,139 +1,130 @@
-<?xml version='1.0' encoding='utf-8'?>
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  due_wheel robot. Measured from the STL files (metres).
+  base_link ORIGIN = centre of the body in X/Y, on the floor in Z (underneath the rollers' lowest point),
+  so spawning at (x, y, ~0) with any yaw rotates the robot about its own centre.
+  The STL meshes are offset by (-0.782, 1.529, -0.953) to achieve this.
+  Base mass/inertia = 5 kg solid box 0.53x0.53x0.60 (estimate).
+  All four joint axes point along base_link -Y: a POSITIVE command drives the robot toward its front (-X).
+-->
 <robot name="due_wheel">
   <link name="base_link">
     <inertial>
-      <origin xyz="0.5 1.39 1.52388513305626" rpy="0 0 0" />
-      <mass value="25" />
-      <inertia ixx="2.50937374618567" ixy="0.168335412986119" ixz="-0.00470475559052553" iyy="2.48941303685721" iyz="0.0253738000756913" izz="2.10388728662347" />
+      <origin xyz="-0.15 -0.0001 0.1" rpy="0 0 0" />
+      <mass value="30" />
+      <inertia ixx="0.26704" ixy="0" ixz="0" iyy="0.26704" iyz="0" izz="0.23408" />
     </inertial>
     <visual>
-      <origin xyz="0 0 0" rpy="0 0 0" />
-      <geometry>
-        <mesh filename="package://robocon27_simulation/meshes/base_link.STL" />
-      </geometry>
-      <material name="">
-        <color rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
-      </material>
+      <origin xyz="-0.782 1.529 -0.953" rpy="0 0 0" />
+      <geometry><mesh filename="package://robocon27_simulation/meshes/base_link.STL" /></geometry>
+      <material name="base_link_mat"><color rgba="0.792 0.820 0.933 1" /></material>
     </visual>
     <collision>
-      <origin xyz="0 0 0" rpy="0 0 0" />
-      <geometry>
-        <mesh filename="package://robocon27_simulation/meshes/base_link.STL" />
-      </geometry>
+      <origin xyz="-0.782 1.529 -0.953" rpy="0 0 0" />
+      <geometry><mesh filename="package://robocon27_simulation/meshes/base_link.STL" /></geometry>
     </collision>
   </link>
   <link name="frontdue">
     <inertial>
-      <origin xyz="0.5 1.39 1.52388513305626" rpy="0 0 0" />
-      <mass value="1" />
-      <inertia ixx="2.50937374618566" ixy="0.168335412986101" ixz="-0.00470475559052576" iyy="2.48941303685719" iyz="0.025373800075687" izz="2.10388728662345" />
+      <origin xyz="0 0 0.22" rpy="0 0 0" />
+      <mass value="0.25" />
+      <inertia ixx="0.01967" ixy="0" ixz="0" iyy="0.02711" iyz="0" izz="0.01452" />
     </inertial>
     <visual>
       <origin xyz="0 0 0" rpy="0 0 0" />
-      <geometry>
-        <mesh filename="package://robocon27_simulation/meshes/frontdue.STL" />
-      </geometry>
-      <material name="">
-        <color rgba="0.752941176470588 0.752941176470588 0.752941176470588 1" />
-      </material>
+      <geometry><mesh filename="package://robocon27_simulation/meshes/frontdue.STL" /></geometry>
+      <material name="frontdue_mat"><color rgba="0.753 0.753 0.753 1" /></material>
     </visual>
     <collision>
       <origin xyz="0 0 0" rpy="0 0 0" />
-      <geometry>
-        <mesh filename="package://robocon27_simulation/meshes/frontdue.STL" />
-      </geometry>
+      <geometry><mesh filename="package://robocon27_simulation/meshes/frontdue.STL" /></geometry>
     </collision>
   </link>
   <joint name="front_due_joint" type="continuous">
-    <origin xyz="0.64914 -1.3091 1.0253" rpy="1.5708 0.43155 0" />
+    <origin xyz="-0.13286 0.21990 0.07230" rpy="1.5708 0.43155 0" />
     <parent link="base_link" />
     <child link="frontdue" />
     <axis xyz="0 0 1" />
+    <limit effort="45" velocity="30" />
+    <dynamics damping="0.02" friction="0.0" />
   </joint>
   <link name="backduewheels">
     <inertial>
-      <origin xyz="0.5 1.39 1.52388513305626" rpy="0 0 0" />
-      <mass value="1" />
-      <inertia ixx="2.50937374618566" ixy="0.168335412986101" ixz="-0.00470475559052576" iyy="2.48941303685719" iyz="0.025373800075687" izz="2.10388728662345" />
+      <origin xyz="0 0 0.085" rpy="0 0 0" />
+      <mass value="0.25" />
+      <inertia ixx="0.00594" ixy="0" ixz="0" iyy="0.01339" iyz="0" izz="0.01452" />
     </inertial>
     <visual>
       <origin xyz="0 0 0" rpy="0 0 0" />
-      <geometry>
-        <mesh filename="package://robocon27_simulation/meshes/backduewheels.STL" />
-      </geometry>
-      <material name="">
-        <color rgba="0.752941176470588 0.752941176470588 0.752941176470588 1" />
-      </material>
+      <geometry><mesh filename="package://robocon27_simulation/meshes/backduewheels.STL" /></geometry>
+      <material name="backduewheels_mat"><color rgba="0.753 0.753 0.753 1" /></material>
     </visual>
     <collision>
       <origin xyz="0 0 0" rpy="0 0 0" />
-      <geometry>
-        <mesh filename="package://robocon27_simulation/meshes/backduewheels.STL" />
-      </geometry>
+      <geometry><mesh filename="package://robocon27_simulation/meshes/backduewheels.STL" /></geometry>
     </collision>
   </link>
   <joint name="back_due_joint" type="continuous">
-    <origin xyz="1.0391 -1.4441 1.0284" rpy="1.5708 0.39092 0" />
+    <origin xyz="0.25710 0.08490 0.07540" rpy="1.5708 0.39092 0" />
     <parent link="base_link" />
     <child link="backduewheels" />
     <axis xyz="0 0 1" />
+    <limit effort="45" velocity="30" />
+    <dynamics damping="0.02" friction="0.0" />
   </joint>
   <link name="backnormalwheel">
     <inertial>
-      <origin xyz="0.5 1.39 1.52388513305626" rpy="0 0 0" />
-      <mass value="1" />
-      <inertia ixx="2.50937374618566" ixy="0.168335412986101" ixz="-0.00470475559052576" iyy="2.48941303685719" iyz="0.025373800075687" izz="2.10388728662345" />
+      <origin xyz="0 0 0.3323" rpy="0 0 0" />
+      <mass value="0.25" />
+      <inertia ixx="0.03783" ixy="0" ixz="0" iyy="0.03783" iyz="0" izz="0.00202" />
     </inertial>
     <visual>
       <origin xyz="0 0 0" rpy="0 0 0" />
-      <geometry>
-        <mesh filename="package://robocon27_simulation/meshes/backnormalwheel.STL" />
-      </geometry>
-      <material name="">
-        <color rgba="0.752941176470588 0.752941176470588 0.752941176470588 1" />
-      </material>
+      <geometry><mesh filename="package://robocon27_simulation/meshes/backnormalwheel.STL" /></geometry>
+      <material name="backnormalwheel_mat"><color rgba="0.753 0.753 0.753 1" /></material>
     </visual>
     <collision>
-      <origin xyz="0 0 0" rpy="0 0 0" />
-      <geometry>
-        <mesh filename="package://robocon27_simulation/meshes/backnormalwheel.STL" />
-      </geometry>
+      <origin xyz="0 0 0.3323" rpy="0 0 0" />
+      <geometry><cylinder radius="0.0636" length="0.6647" /></geometry>
     </collision>
   </link>
   <joint name="back_normal_joint" type="continuous">
-    <origin xyz="0.97994 -1.1967 1.0165" rpy="1.5708 0.31067 0" />
+    <origin xyz="0.19794 0.33230 0.06350" rpy="1.5708 0.31067 0" />
     <parent link="base_link" />
     <child link="backnormalwheel" />
     <axis xyz="0 0 1" />
+    <limit effort="45" velocity="30" />
+    <dynamics damping="0.02" friction="0.0" />
   </joint>
   <link name="frontnormalwheels">
     <inertial>
-      <origin xyz="0.5 1.39 1.52388513305626" rpy="0 0 0" />
-      <mass value="1" />
-      <inertia ixx="2.50937374618566" ixy="0.168335412986101" ixz="-0.00470475559052576" iyy="2.48941303685719" iyz="0.025373800075687" izz="2.10388728662345" />
+      <origin xyz="0 0 0.3323" rpy="0 0 0" />
+      <mass value="0.25" />
+      <inertia ixx="0.03783" ixy="0" ixz="0" iyy="0.03783" iyz="0" izz="0.00202" />
     </inertial>
     <visual>
       <origin xyz="0 0 0" rpy="0 0 0" />
-      <geometry>
-        <mesh filename="package://robocon27_simulation/meshes/frontnormalwheels.STL" />
-      </geometry>
-      <material name="">
-        <color rgba="0.752941176470588 0.752941176470588 0.752941176470588 1" />
-      </material>
+      <geometry><mesh filename="package://robocon27_simulation/meshes/frontnormalwheels.STL" /></geometry>
+      <material name="frontnormalwheels_mat"><color rgba="0.753 0.753 0.753 1" /></material>
     </visual>
     <collision>
-      <origin xyz="0 0 0" rpy="0 0 0" />
-      <geometry>
-        <mesh filename="package://robocon27_simulation/meshes/frontnormalwheels.STL" />
-      </geometry>
+      <origin xyz="0 0 0.3323" rpy="0 0 0" />
+      <geometry><cylinder radius="0.0636" length="0.6647" /></geometry>
     </collision>
   </link>
   <joint name="front_normal_joint" type="continuous">
-    <origin xyz="0.57614 -1.1967 1.0165" rpy="-1.5708 1.5512 -3.1416" />
+    <origin xyz="-0.20586 0.33230 0.06350" rpy="-1.5708 1.5512 -3.1416" />
     <parent link="base_link" />
     <child link="frontnormalwheels" />
     <axis xyz="0 0 1" />
+    <limit effort="45" velocity="30" />
+    <dynamics damping="0.02" friction="0.0" />
   </joint>
+
+  <gazebo reference="frontdue"><mu1>1.0</mu1><mu2>1.0</mu2></gazebo>
+  <gazebo reference="backduewheels"><mu1>1.0</mu1><mu2>1.0</mu2></gazebo>
+  <gazebo reference="backnormalwheel"><mu1>1.0</mu1><mu2>1.0</mu2></gazebo>
+  <gazebo reference="frontnormalwheels"><mu1>1.0</mu1><mu2>1.0</mu2></gazebo>
   <gazebo>
     <plugin filename="gz-sim-joint-controller-system" name="gz::sim::systems::JointController">
       <joint_name>front_due_joint</joint_name>

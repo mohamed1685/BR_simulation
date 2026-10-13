@@ -40,6 +40,8 @@ setup(
     },
     entry_points={
         'console_scripts': [
+            'wheel_teleop = robocon27_simulation.wheel_teleop:main',
+            'cmd_vel_to_wheels = robocon27_simulation.cmd_vel_to_wheels:main',
         ],
     },
 )

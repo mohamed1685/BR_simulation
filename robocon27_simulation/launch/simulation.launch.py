@@ -1,3 +1,4 @@
+import math
 import os
 
 from ament_index_python.packages import get_package_share_directory
@@ -8,7 +9,15 @@ from launch.launch_description_sources import PythonLaunchDescriptionSource
 from launch_ros.actions import Node
 from launch.actions import SetEnvironmentVariable
 
+# ---- EDIT HERE: where the robot's centre should be, and which way it faces ----
+ROBOT_X = -1.0
+ROBOT_Y = 1.0
+ROBOT_YAW = 1.57       # radians, e.g. 1.57 = 90 deg. The robot turns about its own centre.
+# -------------------------------------------------------------------------------
+
+
 def generate_launch_description():
+    spawn_x, spawn_y, spawn_yaw = ROBOT_X, ROBOT_Y, ROBOT_YAW
 
     # Installed package directories
     package_share = get_package_share_directory(
@@ -83,9 +92,10 @@ def generate_launch_description():
             '-world', 'robocon27',
             '-file', robot_file,
             '-name', 'due_wheel',
-            '-x', '-1.5',
-            '-y', '1.5',
-            '-z', '-0.955',
+            '-x', str(spawn_x),
+            '-y', str(spawn_y),
+            '-z', '0.01',
+            '-Y', str(spawn_yaw),
         ],
         output='screen',
     )
