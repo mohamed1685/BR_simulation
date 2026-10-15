@@ -15,7 +15,7 @@ from launch_ros.actions import Node
 # Yaw 0 = robot front (+X of base_link) points along world +X.
 ROBOT_X = -1.0
 ROBOT_Y = 1.0
-ROBOT_YAW = 1.57          # radians, e.g. 1.57 = 90 deg
+ROBOT_YAW = 1.57         # radians, e.g. 1.57 = 90 deg
 # base_link origin is 0.3335 m above the floor (rollers touch the floor); +1 cm so it drops in gently.
 ROBOT_Z = 0.3435
 # -------------------------------------------------------------------------------
